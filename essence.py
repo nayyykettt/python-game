@@ -1,5 +1,6 @@
 from config import *
 import pygame
+import random
 
 
 class Essence(pygame.sprite.Sprite):
@@ -26,3 +27,28 @@ class Player(Essence):
             self.x -= self.speed
         if keys[pygame.K_d]:
             self.x += self.speed
+
+
+class Enemy(Essence):
+    def __init__(self, x, y):
+        super().__init__(x, y, 40, 40)
+        self.speed = 3
+
+    def updata(self):
+        VOV = random.randrange(0, 4)
+        if VOV == 0:
+            self.y += self.speed
+        if VOV == 1:
+            self.y -= self.speed
+        if VOV == 2:
+            self.x -= self.speed
+        if VOV == 3:
+            self.x += self.speed
+        if self.x > WIDTH:
+            self.x = 0
+        if self.y > HEIGHT:
+            self.y = 0
+        if self.x < 0:
+            self.x = WIDTH
+        if self.y < 0:
+            self.y = HEIGHT
