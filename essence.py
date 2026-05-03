@@ -17,17 +17,37 @@ class Player(Essence):
         super().__init__(x, y, 50, 50)
         self.image.fill(RED)
         self.speed = 5
+        self.max_health = 100
+        self.current_health = self.max_health
 
-    def updata(self):
+    def health(self, health_change):
+        
+        self.current_healt += health_change
+        if self.current_health >= self.max_health:
+            self.current_health = self.max_health
+        if self.current_health <= 0:
+            self.current_health = 0
+            self.kill()
+
+
+    def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.y += self.speed
+            self.rect.y -= self.speed
         if keys[pygame.K_s]:
-            self.y -= self.speed
+            self.rect.y += self.speed
         if keys[pygame.K_a]:
-            self.x -= self.speed
+            self.rect.x -= self.speed
         if keys[pygame.K_d]:
-            self.x += self.speed
+            self.rect.x += self.speed
+        if self.rect.x > WIDTH:
+            self.rect.x = 0
+        if self.rect.y > HEIGHT:
+            self.rect.y = 0
+        if self.rect.x < 0:
+            self.rect.x = WIDTH
+        if self.rect.y < 0:
+            self.rect.y = HEIGHT
 
 
 class Enemy(Essence):
@@ -35,26 +55,26 @@ class Enemy(Essence):
         super().__init__(x, y, 40, 40)
         self.speed = 3
         self.last_move = pygame.time.get_ticks()
-        self.movedelay = 500
+        self.movedelay = 250
 
-    def updata(self):
+    def update(self):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_move > self.movedelay:
-            direction = random.choice(['up', 'down', 'left', 'right'])
-            if direction == 'up':
+            direction = random.choice(["up", "down", "left", "right"])
+            if direction == "up":
                 self.rect.y -= 20
-            if direction == 'down':
+            if direction == "down":
                 self.rect.y += 20
-            if direction == 'left':
+            if direction == "left":
                 self.rect.x -= 20
-            if direction == 'right':
+            if direction == "right":
                 self.rect.x += 20
             self.last_move = current_time
-        if self.x > WIDTH:
-            self.x = 0
-        if self.y > HEIGHT:
-            self.y = 0
-        if self.x < 0:
-            self.x = WIDTH
-        if self.y < 0:
-            self.y = HEIGHT
+        if self.rect.x > WIDTH:
+            self.rect.x = 0
+        if self.rect.y > HEIGHT:
+            self.rect.y = 0
+        if self.rect.x < 0:
+            self.rect.x = WIDTH
+        if self.rect.y < 0:
+            self.rect.y = HEIGHT
