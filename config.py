@@ -1,7 +1,7 @@
 import pygame
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1200
+HEIGHT = 900
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
