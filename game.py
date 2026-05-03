@@ -1,13 +1,25 @@
 from config import *
 import pygame
+from essence import Player, Enemy
+import random
 
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("My Gameme")
 clock = pygame.time.Clock()
 screen.fill(BLACK)
 running = True
+all_sprites = pygame.sprite.Group()
+
+player = Player(WIDTH // 2 - 25, HEIGHT // 2 - 25)
+
+all_sprites.add(player)
+
+for i in range(12):
+    enemy = Enemy(random.randint(0, WIDTH), random.randint(0, HEIGHT))
+    all_sprites.add(enemy)
+
 
 while running:
     dt = clock.tick(60) / 1000
@@ -15,4 +27,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    all_sprites.update()
+
+    screen.fill(BLACK)
+    all_sprites.draw(screen)
     pygame.display.flip()

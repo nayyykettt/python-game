@@ -15,6 +15,7 @@ class Essence(pygame.sprite.Sprite):
 class Player(Essence):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50)
+        self.image.fill(RED)
         self.speed = 5
 
     def updata(self):
@@ -33,17 +34,22 @@ class Enemy(Essence):
     def __init__(self, x, y):
         super().__init__(x, y, 40, 40)
         self.speed = 3
+        self.last_move = pygame.time.get_ticks()
+        self.movedelay = 500
 
     def updata(self):
-        VOV = random.randrange(0, 4)
-        if VOV == 0:
-            self.y += self.speed
-        if VOV == 1:
-            self.y -= self.speed
-        if VOV == 2:
-            self.x -= self.speed
-        if VOV == 3:
-            self.x += self.speed
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_move > self.movedelay:
+            direction = random.choice(['up', 'down', 'left', 'right'])
+            if direction == 'up':
+                self.rect.y -= 20
+            if direction == 'down':
+                self.rect.y += 20
+            if direction == 'left':
+                self.rect.x -= 20
+            if direction == 'right':
+                self.rect.x += 20
+            self.last_move = current_time
         if self.x > WIDTH:
             self.x = 0
         if self.y > HEIGHT:
