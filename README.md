@@ -20,7 +20,7 @@ markdown_content = """# Deep Sea Hunter | RTF Edition 2026
 
 ---
 
-## ⌨️Управление
+##Управление
 
 - **WASD / Стрелки** — Перемещение.
 - **Space / ЛКМ** — Гарпун.
