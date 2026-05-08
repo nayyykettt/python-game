@@ -5,6 +5,9 @@ markdown_content = """# Deep Sea Hunter | RTF Edition 2026
 
 Проект: 2D-шутер в поджанре **Bullet Hell** на библиотеке Pygame.
 
+
+
+
 ---
 
 ##  Описание проекта
